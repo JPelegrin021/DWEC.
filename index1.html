@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulari i Objecte</title>
+</head>
+
+<body>
+    <h1>Formulari i Objecte</h1>
+
+    <form id="formulari">
+        <label for="nom">Nom:</label>
+        <input type="text" id="nom" required><br>
+
+        <label for="cognom">Cognom:</label>
+        <input type="text" id="cognom" required><br>
+
+        <label for="edat">Edat:</label>
+        <input type="number" id="edat" required><br>
+
+        <button type="button" id="guardar">Guardar Informació</button>
+    </form>
+
+    <button type="button" id="mostrar">Mostrar Informació</button>
+
+    <div id="resultat"></div>
+</body>
+<script>
+    // Constructor d'objectes
+    function Persona(nom, cognom, edat) {
+        this.nom = nom;
+        this.cognom = cognom;
+        this.edat = edat;
+    }
+
+    Persona.prototype.mostrarInfo = function () {
+        return `Nom: ${this.nom}, Cognom: ${this.cognom}, Edat: ${this.edat}`;
+    };
+
+    // Funció per guardar les dades del formulari en un objecte
+    function guardarDades() {
+        const nom = document.getElementById('nom').value;
+        const cognom = document.getElementById('cognom').value;
+        const edat = document.getElementById('edat').value;
+
+        // Crear un objecte amb les dades introduïdes
+        const persona = new Persona(nom, cognom, edat);
+
+        // Emmagatzemar l'objecte en una variable global
+        window.persona = persona;
+    }
+
+    // Funció per mostrar les dades per pantalla
+    function mostrarDades() {
+        if (window.persona) {
+            const resultat = document.getElementById('resultat');
+            resultat.innerHTML = window.persona.mostrarInfo();
+        } else {
+            alert('Primer, si us plau, introdueix les teves dades i fes clic a "Guardar Informació".');
+        }
+    }
+
+    // Afegir esdeveniments als botons
+    document.getElementById('guardar').addEventListener('click', guardarDades);
+    document.getElementById('mostrar').addEventListener('click', mostrarDades);
+
+</script>
+
+</html>
